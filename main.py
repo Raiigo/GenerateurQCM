@@ -21,6 +21,7 @@ def binary_mantisse_to_decimal(number: List):
 def decimal_to_base(number: int, base: int):
     if base < 1: # Python ne permet pas de réstreindre le type des paramètres, les annotations servant uniquement à l'interpréteur et au linter, une vérification est donc necessaire
         print("La base se doit d'être un entier positif supérieur à 1")
+        return
     higher_power = 0
     for i in range(0, 10): # Determine la plus grande puissance de la base necessaire
         if pow(base, i) > number:
