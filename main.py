@@ -1,4 +1,7 @@
+import math
+from os import truncate
 from typing import List
+from math import *
 
 # Fonction donner la représentation d'un nombre decimal en une base quelconque
 # Le résultat est représenté comme une liste des coefficients devant les puisssances successives de la base
@@ -75,12 +78,39 @@ def signed_bin_to_binary(number: List):
         else:
             retenue = 0
         print(binary)
-        
+
+def signed_int_to_IEEE_754(number: float):
+    sign = 0
+    if number < 0:
+        sign = 1
+    else:
+        sign = 0
+    decimal_whole_part = int(number)
+    exponent = log(decimal_whole_part, 2) + 127 # Formule trivial déduite avec quelques manipulations algébrique aisé
+    mantissa_value = number/(pow(2, int(exponent - 127)))
+    print(int(exponent))
+    print(mantissa_value)
+    n = mantissa_value * pow(2, 5)
+    q = n
+    mantissa = []
+    while q != 1:
+        if math.ceil(q%2) == 0:
+            mantissa.append(0)
+        for i in range(0, math.ceil(q%2)):
+            mantissa.append(1)
+        q = q // 2
+    mantissa.reverse()
+    print(mantissa)
+    mantissa_buffer = mantissa
+    mantissa = []
+    
+
 
 
 if __name__ == "__main__":
     # decimal_to_base(78, 2)
     # signed_bin_to_binary(binary_to_signed_bin(decimal_to_base(78, 2)))
-    binary_to_signed_bin([0, 1, 1, 1, 0, 1])
-    signed_bin_to_binary(binary_to_signed_bin([0, 1, 1, 1, 0, 1]))
-    print(0|1)
+    # binary_to_signed_bin([0, 1, 1, 1, 0, 1])
+    # signed_bin_to_binary(binary_to_signed_bin([0, 1, 1, 1, 0, 1]))
+    signed_int_to_IEEE_754(56)
+    print("")
