@@ -86,14 +86,16 @@ def signed_int_to_IEEE_754(number: float):
     else:
         sign = 0
     decimal_whole_part = int(number)
-    exponent = log(decimal_whole_part, 2) + 127 # Formule trivial déduite avec quelques manipulations algébrique aisé
+    exponent = log(decimal_whole_part, 2) + 127 # Formule trivial déduite avec quelques manipulations algébrique aisées
     mantissa_value = number/(pow(2, int(exponent - 127)))
     print(int(exponent))
     print(mantissa_value)
-    n = mantissa_value * pow(2, 5)
+    n = mantissa_value * pow(2, 23)
     q = n
     mantissa = []
     while q != 1:
+        print(str(q) + " // 2")
+        print(str(math.ceil(q%2)))
         if math.ceil(q%2) == 0:
             mantissa.append(0)
         for i in range(0, math.ceil(q%2)):
@@ -101,9 +103,11 @@ def signed_int_to_IEEE_754(number: float):
         q = q // 2
     mantissa.reverse()
     print(mantissa)
-    mantissa_buffer = mantissa
-    mantissa = []
-    
+    binary_exponent = decimal_to_base(int(exponent), 2)
+    result = [sign] + binary_exponent + mantissa
+    print(result)
+    return result
+
 
 
 
@@ -112,5 +116,5 @@ if __name__ == "__main__":
     # signed_bin_to_binary(binary_to_signed_bin(decimal_to_base(78, 2)))
     # binary_to_signed_bin([0, 1, 1, 1, 0, 1])
     # signed_bin_to_binary(binary_to_signed_bin([0, 1, 1, 1, 0, 1]))
-    signed_int_to_IEEE_754(56)
+    signed_int_to_IEEE_754(89)
     print("")
