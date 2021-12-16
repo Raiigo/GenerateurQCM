@@ -1,8 +1,7 @@
-# Fonction donner la représentation d'un nombre decimal en une base quelconque
-# Le résultat est représenté comme une liste des coefficients devant les puisssances successives de la base
 from typing import List
 
-
+# Fonction donner la représentation d'un nombre decimal en une base quelconque
+# Le résultat est représenté comme une liste des coefficients devant les puisssances successives de la base
 def decimal_to_base(number: int, base: int):
     if base < 1: # Python ne permet pas de réstreindre le type des paramètres, les annotations servant uniquement à l'interpréteur et au linter, une vérification est donc necessaire
         print("La base se doit d'être un entier positif supérieur à 1")
@@ -80,6 +79,8 @@ def signed_bin_to_binary(number: List):
 
 
 if __name__ == "__main__":
-    decimal_to_base(78, 2)
-    signed_bin_to_binary(binary_to_signed_bin(decimal_to_base(78, 2)))
+    # decimal_to_base(78, 2)
+    # signed_bin_to_binary(binary_to_signed_bin(decimal_to_base(78, 2)))
+    binary_to_signed_bin([0, 1, 1, 1, 0, 1])
+    signed_bin_to_binary(binary_to_signed_bin([0, 1, 1, 1, 0, 1]))
     print(0|1)
