@@ -122,7 +122,23 @@ def signed_int_to_IEEE_754(number: float):
     return result
 
 def IEEE_754_to_signed_int(number: List):
-    sign = number[0]
+    sign = 1
+    if number[0] == 0:
+        sign = 1
+    else:
+        sign = -1
+
+    binary_exponent = number[1:9]
+    print(binary_exponent)
+    exponent_pow_2 = pow(2, binary_to_decimal(binary_exponent) - 127)
+    print(exponent_pow_2)
+    binary_mantisse = number[8:32]
+    print(binary_mantisse)
+    mantisse = binary_mantisse_to_decimal(binary_mantisse)
+    print(mantisse)
+    result = sign * exponent_pow_2 * mantisse
+    print(result)
+    return result
 
 
 
@@ -135,4 +151,6 @@ if __name__ == "__main__":
     signed_int_to_IEEE_754(89)
     print(binary_to_decimal([1, 0, 1, 0]))
     print(binary_mantisse_to_decimal([1, 0, 1]))
+    IEEE_754_to_signed_int([0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    binary_mantisse_to_decimal([0, 1, 1, 0, 0, 1, 0])
     print("")
