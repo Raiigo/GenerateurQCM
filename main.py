@@ -3,6 +3,19 @@ from os import truncate
 from typing import List
 from math import *
 
+def binary_to_decimal(number: List):
+    number.reverse()
+    result = 0
+    for i in range(0, len(number)):
+        result = result + number[i] * pow(2, i)
+    return result
+
+def binary_mantisse_to_decimal(number: List):
+    result = 0.0
+    for i in range(0, len(number)):
+        result = result + float(number[i]) * float(pow(2, -i))
+    return result
+
 # Fonction donner la représentation d'un nombre decimal en une base quelconque
 # Le résultat est représenté comme une liste des coefficients devant les puisssances successives de la base
 def decimal_to_base(number: int, base: int):
@@ -108,6 +121,9 @@ def signed_int_to_IEEE_754(number: float):
     print(result)
     return result
 
+def IEEE_754_to_signed_int(number: List):
+    sign = number[0]
+
 
 
 
@@ -117,4 +133,6 @@ if __name__ == "__main__":
     # binary_to_signed_bin([0, 1, 1, 1, 0, 1])
     # signed_bin_to_binary(binary_to_signed_bin([0, 1, 1, 1, 0, 1]))
     signed_int_to_IEEE_754(89)
+    print(binary_to_decimal([1, 0, 1, 0]))
+    print(binary_mantisse_to_decimal([1, 0, 1]))
     print("")
