@@ -2,6 +2,7 @@ import math
 from os import truncate
 from typing import List
 from math import *
+import random
 
 def binary_to_decimal(number: List):
     number.reverse()
@@ -67,6 +68,7 @@ def binary_to_signed_bin(number: List): # Ici on représente le nombre binaire s
             retenue = 0
         print(opposite)
 
+    opposite = opposite[1:len(opposite)]
     print(opposite)
     return opposite
 
@@ -92,6 +94,8 @@ def signed_bin_to_binary(number: List):
         else:
             retenue = 0
         print(binary)
+
+    return binary
 
 def signed_int_to_IEEE_754(number: float):
     sign = 0
@@ -149,9 +153,109 @@ if __name__ == "__main__":
     # signed_bin_to_binary(binary_to_signed_bin(decimal_to_base(78, 2)))
     # binary_to_signed_bin([0, 1, 1, 1, 0, 1])
     # signed_bin_to_binary(binary_to_signed_bin([0, 1, 1, 1, 0, 1]))
-    signed_int_to_IEEE_754(89)
-    print(binary_to_decimal([1, 0, 1, 0]))
-    print(binary_mantisse_to_decimal([1, 0, 1]))
-    IEEE_754_to_signed_int([0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-    binary_mantisse_to_decimal([0, 1, 1, 0, 0, 1, 0])
-    print("")
+    # signed_int_to_IEEE_754(12.89)
+    # print(binary_to_decimal([1, 0, 1, 0]))
+    # print(binary_mantisse_to_decimal([1, 0, 1]))
+    # IEEE_754_to_signed_int([0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    # binary_mantisse_to_decimal([0, 1, 1, 0, 0, 1, 0])
+    print("1 pour des questions aléatoires, 2 pour des questions préfaites")
+    response = str(input())
+    if response == "1":
+        question = random.randint(1, 5)
+        if question == 1: # Decimal -> base quelconque
+            decimal = random.randint(1, 1000)
+            base = random.randint(2, 20)
+            solution = decimal_to_base(decimal, base)
+            print("Donnez les coefficients des puissances successives de " + str(base) + " (séparée par des ',') afin de représenter le nombre " + str(decimal) + " en base " + str(base))
+            response = str(input())
+            response = response.replace(" ", "")
+            response = response.split(",")
+            response_buffer = response
+            response = []
+            for i in response_buffer:
+                i.replace(",", "")
+                print(i)
+                response.append(int(i))
+            if response == solution:
+                print("Bravo !")
+            else:
+                print("Raté")
+
+        if question == 2: # Binaire -> C2
+            binary = []
+            for _ in range(0, 8):
+                binary.append(random.randint(0, 1))
+            solution = binary_to_signed_bin(binary)
+            print("Représentez le nombre binaire " + str(binary) + " en compléments à 2 (séparer chaque coefficient par une ',')")
+            response = str(input())
+            response = response.replace(" ", "")
+            response = response.split(",")
+            response_buffer = response
+            response = []
+            for i in response_buffer:
+                i.replace(",", "")
+                print(i)
+                response.append(int(i))
+            if response == solution:
+                print("Bravo !")
+            else:
+                print("Raté")
+
+        if question == 3: # C2 -> Binaire
+            binary = []
+            for _ in range(0, 8):
+                binary.append(random.randint(0, 1))
+            solution = signed_bin_to_binary(binary)
+            print("Représentez le nombre binaire ayant pour complément à deux " + str(binary) + " (séparer chaque coefficient par une ',')")
+            response = str(input())
+            response = response.replace(" ", "")
+            response = response.split(",")
+            response_buffer = response
+            response = []
+            for i in response_buffer:
+                i.replace(",", "")
+                print(i)
+                response.append(int(i))
+            if response == solution:
+                print("Bravo !")
+            else:
+                print("Raté")
+
+        if question == 4: # float -> IEEE-754
+            entiere = random.randint(-125, 125)
+            virgule = random.randint(10000, 10000)
+            number = float(str(entiere) + "." + str(virgule))
+            solution = signed_int_to_IEEE_754(number)
+            print("Indiquez le nombre au format IEEE-754 représentant " + str(number) + " (séparer chaque coefficient par une ',')")
+            response = str(input())
+            response = response.replace(" ", "")
+            response = response.split(",")
+            response_buffer = response
+            response = []
+            for i in response_buffer:
+                i.replace(",", "")
+                print(i)
+                response.append(int(i))
+            if response == solution:
+                print("Bravo !")
+            else:
+                print("Raté")
+
+        if question == 5: # IEEE-754 -> float
+            binary = []
+            for _ in range(0, 32):
+                binary.append(random.randint(0, 1))
+            solution = str(IEEE_754_to_signed_int(binary))[0:6]
+            print(solution)
+            print("Indiquez la valeur decimal du nombre " + str(binary) + " représentez avec le format IEEE-754 (6 caractères au total)")
+            result = str(input())
+            if result == solution:
+                print("Bravo !")
+            else:
+                print("Raté")
+
+    elif response == "2":
+        print("")
+    else:
+        print("Entrez un nombre valide")
+    
